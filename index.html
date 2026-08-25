@@ -264,7 +264,17 @@ body { background-color: #fff !important; }
         document.getElementById('out-reg').innerText = d.regNo;
         document.getElementById('out-center').innerText = d.center;
         document.getElementById('out-section').innerText = d.section || "-";
-        document.getElementById('out-dob').innerText = d.dob || "-";
+        // DOB Format FIX (DD-MM-YYYY)
+if (d.dob) {
+    let cleanDob = d.dob;
+    if (cleanDob.includes('T')) {
+        let parts = cleanDob.split('T')[0].split('-'); // ["2014", "05", "01"]
+        cleanDob = `${parts[2]}-${parts[1]}-${parts[0]}`; // "01-05-2014"
+    }
+    document.getElementById('out-dob').innerText = cleanDob;
+} else {
+    document.getElementById('out-dob').innerText = "-";
+}
         document.getElementById('out-mother').innerText = d.mother || "-";
         
         if(d.photo) {
