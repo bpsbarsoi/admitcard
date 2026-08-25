@@ -171,6 +171,39 @@ body { background-color: #fff !important; }
 
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbz7aDggmeU709Ygegb8MSPBHcnmJ93WY_JpMIM-uuxci3mJFovH6vCfVUM3NoRcS-HB/exec"; 
+    window.addEventListener('DOMContentLoaded', () => {
+    // 1. URL से Parameters पढ़ें
+    const params = new URLSearchParams(window.location.search);
+    const cls = params.get('class');
+    const roll = params.get('roll');
+
+    // 2. Form के Inputs को पकड़े (अपने Input IDs के हिसाब से check करें)
+    const classInput = document.querySelector('input[placeholder*="Class"]') || document.getElementById('classInput');
+    const rollInput = document.querySelector('input[placeholder*="Roll"]') || document.getElementById('rollInput');
+    const checkBtn = document.querySelector('button') || document.querySelector('input[type="submit"]');
+
+    // 3. Inputs में Value Fill करें
+    if (cls && classInput) classInput.value = cls;
+    if (roll && rollInput) rollInput.value = roll;
+
+    // 4. अगर Data मिल गया तो खुद-ब-खुद Check Result बटन क्लिक कराएं
+    if (cls && roll && checkBtn) {
+        checkBtn.click(); // Ya phir aap direct apna search function call kar sakte hain
+    }
+});
+
+    
+    // Webview viewport clear trigger before printing
+    function doPrint() {
+        document.body.style.paddingTop = "0px";
+        setTimeout(() => {
+            if(window.AndroidPrint){ 
+                AndroidPrint.triggerPrint(); 
+            } else { 
+                window.print(); 
+            }
+        }, 100);
+    }
 
     function find() {
         var r = document.getElementById('roll').value;
