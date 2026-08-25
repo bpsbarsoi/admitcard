@@ -172,27 +172,24 @@ body { background-color: #fff !important; }
 <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbz7aDggmeU709Ygegb8MSPBHcnmJ93WY_JpMIM-uuxci3mJFovH6vCfVUM3NoRcS-HB/exec"; 
     window.addEventListener('DOMContentLoaded', () => {
-    // 1. URL से Parameters पढ़ें
+    // 1. URL se Parameters padhein (?class=7&roll=12)
     const params = new URLSearchParams(window.location.search);
     const cls = params.get('class');
     const roll = params.get('roll');
 
-    // 2. Form के Inputs को पकड़े (अपने Input IDs के हिसाब से check करें)
-    const classInput = document.querySelector('input[placeholder*="Class"]') || document.getElementById('classInput');
-    const rollInput = document.querySelector('input[placeholder*="Roll"]') || document.getElementById('rollInput');
-    const checkBtn = document.querySelector('button') || document.querySelector('input[type="submit"]');
+    // 2. Correct HTML IDs ke hisab se Inputs ko pakdein
+    const classInput = document.getElementById('cls');
+    const rollInput = document.getElementById('roll');
 
-    // 3. Inputs में Value Fill करें
+    // 3. Inputs mein Value Fill karein
     if (cls && classInput) classInput.value = cls;
     if (roll && rollInput) rollInput.value = roll;
 
-    // 4. अगर Data मिल गया तो खुद-ब-खुद Check Result बटन क्लिक कराएं
-    if (cls && roll && checkBtn) {
-        checkBtn.click(); // Ya phir aap direct apna search function call kar sakte hain
+    // 4. Data milne par seedhe find() function call karein
+    if (cls && roll) {
+        find();
     }
-});
-
-    
+});  
     // Webview viewport clear trigger before printing
     function doPrint() {
         document.body.style.paddingTop = "0px";
